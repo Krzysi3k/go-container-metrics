@@ -46,8 +46,10 @@ func main() {
 			}
 
 			cli.r.MSet(cli.ctx, pairs)
+		} else {
+		    log.Println("no containers metrics found")
 		}
-		log.Println("no containers metrics found")
+		
 		time.Sleep(time.Second * 120)
 	}
 }
