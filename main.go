@@ -50,7 +50,7 @@ func main() {
 		    log.Println("no containers metrics found")
 		}
 		
-		time.Sleep(time.Second * 120)
+		time.Sleep(time.Second * 180)
 	}
 }
 
