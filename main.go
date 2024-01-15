@@ -6,7 +6,6 @@ import (
 	"os"
 	"os/signal"
 	"syscall"
-	"time"
 
 	"github.com/go-redis/redis/v9"
 )
@@ -27,10 +26,9 @@ const (
 )
 
 func main() {
-	go storeContainerData(interval)
+	go storeContainerMetrics(interval)
 	log.Println("started gathering container metrics...")
 
-	time.Sleep(time.Second * 5)
 	go storeHostMetrics(interval)
 	log.Println("started gathering host metrics...")
 

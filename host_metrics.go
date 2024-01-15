@@ -23,19 +23,16 @@ func storeHostMetrics(interval int) {
 			continue
 		}
 		ts := time.Now().Unix()
-
 		cpuval := fmt.Sprintf("%.2f", percent[0])
-		// log.Printf("current CPU usage: %s %%\n", cpuval)
-		// log.Printf("current RAM usage: %d MB\n", memstat.Used/1024/1024)
+		newrow := fmt.Sprintf("%s,%d,%d\n", cpuval, memstat.Used/1024/1024, ts)
 		vals, err := cli.r.Get(cli.ctx, "docker:metrics:host.usage").Result()
 		var sb strings.Builder
 		if err == redis.Nil {
-			sb.WriteString("cpu,mem,ts\n")
+			sb.WriteString("cpu,mem,ts\n" + newrow)
 		} else if err != nil {
 			log.Println("redis error: ", err)
 			continue
 		} else {
-			newrow := fmt.Sprintf("%s,%d,%d\n", cpuval, memstat.Used/1024/1024, ts)
 			sb.WriteString(vals + newrow)
 		}
 

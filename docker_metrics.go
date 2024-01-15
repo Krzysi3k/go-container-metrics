@@ -38,7 +38,7 @@ func getContainersMetrics() []RedisEntry {
 	return entries
 }
 
-func storeContainerData(interval int) {
+func storeContainerMetrics(interval int) {
 	cli := newRedisCli(redisAddr, context.Background())
 	for {
 		if entries := getContainersMetrics(); entries != nil {
