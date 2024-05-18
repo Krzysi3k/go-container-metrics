@@ -21,7 +21,7 @@ type RedisEntry struct {
 }
 
 const (
-	interval  = 300
+	interval  = 600
 	redisAddr = "192.168.0.123:6379"
 )
 
