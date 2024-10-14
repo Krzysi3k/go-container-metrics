@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os/exec"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -27,6 +28,15 @@ func getContainersMetrics() []RedisEntry {
 			memTmp := strings.Trim(strings.Split(memUsg, "/")[0], " ")
 			nameFmt := strings.Trim(cntName, " ")
 			memFmt := strings.ReplaceAll(memTmp, "MiB", "")
+			if strings.Contains(memFmt, "GiB") {
+				memFmt = strings.ReplaceAll(memTmp, "GiB", "")
+				memFloat, err := strconv.ParseFloat(memFmt, 64)
+				if err != nil {
+					log.Println(err)
+					return nil
+				}
+				memFmt = fmt.Sprintf("%.2f", memFloat*1024)
+			}
 			cpuFmt := strings.Trim(strings.ReplaceAll(cpuUsg, "%", ""), " ")
 			entry := fmt.Sprintf("%v,%v,%v", cpuFmt, memFmt, ts)
 			entries = append(entries, RedisEntry{
