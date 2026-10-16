@@ -1,2 +1,3 @@
 cd "$(dirname "$0")"
-./go-containers-metrics & >> out.log 2>&1
+# Oct16 2k26 wylaczone
+#./go-containers-metrics & >> out.log 2>&1
